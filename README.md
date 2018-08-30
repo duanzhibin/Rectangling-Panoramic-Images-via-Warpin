@@ -2,7 +2,8 @@
 
 ### Paper
 
-Xingang Pan, Ping Luo, Jianping Shi, Xiaoou Tang. ["Two at Once: Enhancing Learning and Generalization Capacities via IBN-Net"](https://arxiv.org/abs/1807.09441), ECCV2018.  
+Kaiming He, Huiwen Chang, and Jian Sun. ["Rectangling Panoramic Images via Warping
+"](http://kaiminghe.com/sig13/index.html),SIGGRAPH 2013.  
 
 ### Introduction
 <img align="middle" width="500" height="280" src="./utils/IBNNet.png">   

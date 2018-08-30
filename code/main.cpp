@@ -22,26 +22,26 @@ int mask_fg(Mat& rgbImg, int thrs, Mat &mask);
 void my_imfillholes(Mat &src);
 
 int main(int argc, char** argv){
-	Mat image;                //Ô­Í¼
+	Mat image;                //åŽŸå›¾
 	image = imread("C:\\Users\\duan\\Desktop\\1_input.jpg", 1);
 
 	if (image.empty()){
-		cout << "Í¼Ïñ¼ÓÔØÊ§°Ü" << endl;
+		cout << "å›¾åƒåŠ è½½å¤±è´¥" << endl;
 		return -1;
 	}
 	Mat origImg = image / 255;
 
-	//imshow("Ô­Í¼", image);
+	//imshow("åŽŸå›¾", image);
 	//waitKey(10);
-	//°ÑÔ­Í¼Ñ¹ËõÎª1M£»
+	//æŠŠåŽŸå›¾åŽ‹ç¼©ä¸º1Mï¼›
 	int rows = image.rows;
 	int cols = image.cols;
 	//	int color = image.channels;
 	int megapixel = rows*cols;
-	double scale = sqrt(double(800000) / megapixel);       //¿É¸Ä±äÑ¹Ëõ±È
+	double scale = sqrt(double(800000) / megapixel);       //å¯æ”¹å˜åŽ‹ç¼©æ¯”
 	Mat origImg1M;
 	resize(image, origImg1M, Size(cols*scale, rows*scale), 0, 0, INTER_NEAREST);
-	//imshow("ËõÐ¡",origImg1M);
+	//imshow("ç¼©å°",origImg1M);
 	//waitKey(10);
 	int thrs = 253;
 	Mat mask(Size(cols, rows), CV_8UC1);
@@ -60,20 +60,20 @@ int main(int argc, char** argv){
 		}
 	}
 	
-	//imshow("mask1M", mask1M * 255);                          //´Ë´¦¿ÉÒÔÏÔÊ¾mask
+	//imshow("mask1M", mask1M * 255);                          //æ­¤å¤„å¯ä»¥æ˜¾ç¤ºmask
 	//waitKey(0);
 
 
 	Mat OutImg(Size(cols*scale, rows*scale), CV_8UC3);
 	Mat dispMap(Size(cols*scale, rows*scale), CV_32FC2);
 	//LocalWarp::
-	localWarping(origImg1M, mask1M, OutImg, dispMap);          //localWarping¹ý³Ì
+	localWarping(origImg1M, mask1M, OutImg, dispMap);          //localWarpingè¿‡ç¨‹
 	//cout << dispMap;
 	//imshow("mask1M",mask1M*255);
 	//waitKey(30);
 	checkLocal(origImg1M,mask1M, dispMap);       
-	//imshow("OutImg", OutImg);                                 //´Ë´¦ÏÔÊ¾localwarping½áÊøµÄÍ¼
-	//waitKey(0);                                              //ÕýÈ·
+	//imshow("OutImg", OutImg);                                 //æ­¤å¤„æ˜¾ç¤ºlocalwarpingç»“æŸçš„å›¾
+	//waitKey(0);                                               //æ­£ç¡®
 
 	//imshow("origImg1M", origImg1M);
 	//waitKey(30);
@@ -81,7 +81,7 @@ int main(int argc, char** argv){
 
 	Mat Vlocal, Vglobal;
 	//globalWarp::
-    globalmeshOpt(origImg1M, mask1M, dispMap,Vlocal,Vglobal);            //globalWarping¹ý³Ì
+    globalmeshOpt(origImg1M, mask1M, dispMap,Vlocal,Vglobal);            //globalWarpingè¿‡ç¨‹
 	
 	Mat outputImg;
 	//meshWarp::
@@ -107,7 +107,7 @@ int main(int argc, char** argv){
 	double upScale = sqrt(double(megapixel) / 1000000);
 	Mat finalImg;
 	resize(outputImg, finalImg, Size(cols / upScale, rows / upScale), 0, 0, INTER_NEAREST);
-	//imshow("×îÖÕ½á¹û", finalImg);
+	//imshow("æœ€ç»ˆç»“æžœ", finalImg);
 	//waitKey(0);
 	
 	return 0;
@@ -149,16 +149,16 @@ int mask_fg(Mat& rgbImg, int thrs, Mat &mask)
 	//waitKey(30);
 
 	/*
-	int g_nStructElementSize = 1; //½á¹¹ÔªËØ(ÄÚºË¾ØÕó)µÄ³ß´ç  
-	//»ñÈ¡×Ô¶¨ÒåºË  
+	int g_nStructElementSize = 1; //ç»“æž„å…ƒç´ (å†…æ ¸çŸ©é˜µ)çš„å°ºå¯¸  
+	//èŽ·å–è‡ªå®šä¹‰æ ¸  
 	Mat element = getStructuringElement(MORPH_RECT,
 		Size(2 * g_nStructElementSize + 1, 2 * g_nStructElementSize + 1),
 		Point(g_nStructElementSize, g_nStructElementSize));
 	morphologyEx(mask, mask, MORPH_OPEN, element);
 	
 	
-	 int g_nStructElementSize = 1; //½á¹¹ÔªËØ(ÄÚºË¾ØÕó)µÄ³ß´ç  
-	//»ñÈ¡×Ô¶¨ÒåºË  
+	 int g_nStructElementSize = 1; //ç»“æž„å…ƒç´ (å†…æ ¸çŸ©é˜µ)çš„å°ºå¯¸  
+	//èŽ·å–è‡ªå®šä¹‰æ ¸  
      Mat element = getStructuringElement(MORPH_RECT,
 		Size(2 * g_nStructElementSize + 1, 2 * g_nStructElementSize + 1),
 		Point(g_nStructElementSize, g_nStructElementSize));
